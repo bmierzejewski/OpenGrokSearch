@@ -5,16 +5,21 @@ import javax.swing.*;
 public class ConfigurationForm {
     private JTextField linkField;
     private JLabel linkLabel;
-    private JTextField paramsField;
-    private JLabel paramsLabel;
     private JPanel component;
+    private JTextField loginField;
+    private JPasswordField passwordField;
+    private JLabel loginLabel;
+    private JLabel passwordLabel;
+    private JLabel apacheSettingsLabel;
 
     public ConfigurationForm(Configuration configuration) {
         this.linkField.setText(configuration.getLink());
-        this.paramsField.setText(configuration.getParams());
+        this.loginField.setText(configuration.getLogin());
+        this.passwordField.setText(configuration.getPassword());
 
         this.linkLabel.setLabelFor(this.linkField);
-        this.paramsLabel.setLabelFor(this.paramsField);
+        this.loginLabel.setLabelFor(this.loginField);
+        this.loginLabel.setLabelFor(this.loginField);
     }
 
     public JPanel getComponent() {
@@ -23,13 +28,15 @@ public class ConfigurationForm {
 
     public void setConfiguration(Configuration configuration) {
         this.linkField.setText(configuration.getLink());
-        this.paramsField.setText(configuration.getParams());
+        this.loginField.setText(configuration.getLogin());
+        this.passwordField.setText(configuration.getPassword());
     }
 
     public Configuration getConfiguration() {
         Configuration configuration = new Configuration();
         configuration.setLink(this.linkField.getText());
-        configuration.setParams(this.paramsField.getText());
+        configuration.setLogin(this.loginField.getText());
+        configuration.setPassword(this.passwordField.getPassword().toString());
 
         return configuration;
     }

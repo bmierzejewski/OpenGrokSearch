@@ -29,9 +29,9 @@ public class OpenGrokSearchAction extends AnAction {
         Configuration configuration = Configuration.getInstance();
         if (!configuration.getLink().equals("")) {
             try {
-                link = configuration.getLink() + "/search?q=" + URLEncoder.encode(phrase, "UTF-8") + configuration.getParams();
+                link = configuration.getLink() + "/search?q=" + URLEncoder.encode(phrase, "UTF-8");
             } catch (UnsupportedEncodingException e1) {
-                link = configuration.getLink() + "/search?q=" + phrase + configuration.getParams();
+                link = configuration.getLink() + "/search?q=" + phrase;
             }
         }
 

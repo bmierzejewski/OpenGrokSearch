@@ -2,10 +2,12 @@ package openGrokSearch;
 
 public class Configuration {
     private String link;
-    private String params;
+    private String login;
+    private String password;
 
     public static final String LINK_FIELD = "openGrokLink";
-    public static final String PARAMS_FIELD = "openGrokParams";
+    public static final String LOGIN_FIELD = "openGrokLogin";
+    public static final String PASSWORD_FIELD = "openGrokPassword";
 
     private static volatile Configuration instance;
 
@@ -33,11 +35,19 @@ public class Configuration {
         this.link = link;
     }
 
-    public String getParams() {
-        return params;
+    public String getLogin() {
+        return login;
     }
 
-    public void setParams(String params) {
-        this.params = params;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

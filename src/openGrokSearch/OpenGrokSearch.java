@@ -20,7 +20,8 @@ public class OpenGrokSearch implements ProjectComponent, Configurable {
         propertiesComponent = PropertiesComponent.getInstance(project);
         configuration = Configuration.getInstance();
         configuration.setLink(propertiesComponent.getValue(Configuration.LINK_FIELD));
-        configuration.setParams(propertiesComponent.getValue(Configuration.PARAMS_FIELD));
+        configuration.setLogin(propertiesComponent.getValue(Configuration.LOGIN_FIELD));
+        configuration.setPassword(propertiesComponent.getValue(Configuration.PASSWORD_FIELD));
     }
 
     @Override
@@ -86,7 +87,8 @@ public class OpenGrokSearch implements ProjectComponent, Configurable {
             Configuration.setInstance(configuration);
 
             this.propertiesComponent.setValue(Configuration.LINK_FIELD, this.configuration.getLink());
-            this.propertiesComponent.setValue(Configuration.PARAMS_FIELD, this.configuration.getParams());
+            this.propertiesComponent.setValue(Configuration.LOGIN_FIELD, this.configuration.getLogin());
+            this.propertiesComponent.setValue(Configuration.PASSWORD_FIELD, this.configuration.getPassword());
         }
     }
 
