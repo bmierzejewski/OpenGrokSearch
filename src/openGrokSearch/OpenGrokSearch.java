@@ -1,10 +1,15 @@
 package openGrokSearch;
 
-import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.IconLoader;
+import openGrokSearch.actions.tasks.GetProjectsTask;
+import openGrokSearch.forms.SearchResultForm;
+import openGrokSearch.utils.Configuration;
+import openGrokSearch.forms.ConfigurationForm;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,15 +18,19 @@ import javax.swing.*;
 public class OpenGrokSearch implements ProjectComponent, Configurable {
 
     private ConfigurationForm configurationForm;
+    private SearchResultForm searchResultForm;
     private Configuration configuration;
-    private final PropertiesComponent propertiesComponent;
+    private Project project;
+
 
     public OpenGrokSearch(Project project) {
-        propertiesComponent = PropertiesComponent.getInstance(project);
         configuration = Configuration.getInstance();
-        configuration.setLink(propertiesComponent.getValue(Configuration.LINK_FIELD));
-        configuration.setLogin(propertiesComponent.getValue(Configuration.LOGIN_FIELD));
-        configuration.setPassword(propertiesComponent.getValue(Configuration.PASSWORD_FIELD));
+
+        this.project = project;
+    }
+
+    public static OpenGrokSearch getInstance(Project project) {
+        return project.getComponent(OpenGrokSearch.class);
     }
 
     @Override
@@ -37,12 +46,11 @@ public class OpenGrokSearch implements ProjectComponent, Configurable {
     @Nls
     @Override
     public String getDisplayName() {
-        return "openGrok search";
+        return "OpenGrok search";
     }
 
-    @Override
     public Icon getIcon() {
-        return null;  
+        return IconLoader.findIcon("/actions/find.png");
     }
 
     @Override
@@ -52,18 +60,18 @@ public class OpenGrokSearch implements ProjectComponent, Configurable {
 
     @Override
     public void projectOpened() {
-        
+        searchResultForm = new SearchResultForm(project, configuration);
     }
 
     @Override
     public void projectClosed() {
-        
+
     }
 
     @NotNull
     @Override
     public String getComponentName() {
-        return "openGrok search";
+        return "OpenGrok Search";
     }
 
     @Override
@@ -83,24 +91,26 @@ public class OpenGrokSearch implements ProjectComponent, Configurable {
     @Override
     public void apply() throws ConfigurationException {
         if(this.configurationForm != null) {
-            configuration = configurationForm.getConfiguration();
-            Configuration.setInstance(configuration);
+            configurationForm.apply(configuration);
 
-            this.propertiesComponent.setValue(Configuration.LINK_FIELD, this.configuration.getLink());
-            this.propertiesComponent.setValue(Configuration.LOGIN_FIELD, this.configuration.getLogin());
-            this.propertiesComponent.setValue(Configuration.PASSWORD_FIELD, this.configuration.getPassword());
+            GetProjectsTask task = new GetProjectsTask(project, configuration, searchResultForm);
+            ProgressManager.getInstance().run(task);
         }
     }
 
     @Override
     public void reset() {
         if(this.configurationForm != null) {
-            this.configurationForm.setConfiguration(this.configuration);
+            this.configurationForm.reset(this.configuration);
         }
     }
 
     @Override
     public void disposeUIResources() {
         this.configurationForm = null;
+    }
+
+    public SearchResultForm getSearchResultForm() {
+        return searchResultForm;
     }
 }

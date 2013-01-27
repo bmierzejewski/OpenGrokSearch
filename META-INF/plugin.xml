@@ -21,15 +21,19 @@
 
   <actions>
     <!-- Add your actions here -->
-      <action id="openGrokSearch.OpenGrokSearchAction" class="openGrokSearch.OpenGrokSearchAction"
-              text="Search in openGrok" description="Search selected text in openGrok">
-          <keyboard-shortcut first-keystroke="control alt u" second-keystroke="C" keymap="$default"/>
-          <add-to-group group-id="ToolsMenu" anchor="last"/>
+      <action id="openGrokSearch.actions.SearchAction" class="openGrokSearch.actions.SearchAction"
+              text="Search in openGrok" description="Search selected text in openGrok" icon="/actions/find.png">
+          <keyboard-shortcut first-keystroke="control o" keymap="$default"/>
+          <add-to-group group-id="FindMenuGroup" anchor="last"/>
       </action>
+
+      <!--<group id="openGrokSearch.actions" text="" popup="false">-->
+          <!--<reference id="openGrokSearch.actions.Button.SearchAction" ref="openGrokSearch.actions.SearchAction"/>-->
+      <!--</group>-->
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-      <appStarter implementation="openGrokSearch.OpenGrokSearchAction"/>
+      <appStarter implementation="openGrokSearch.actions.SearchAction"/>
   </extensions>
 </idea-plugin>

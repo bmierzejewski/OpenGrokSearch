@@ -1,8 +1,8 @@
-package openGrokSearch;
+package openGrokSearch.actions.utils;
 
 import com.intellij.openapi.editor.Editor;
 
-class SelectedText {
+public class SelectedText {
 
     private final Editor editor;
 
