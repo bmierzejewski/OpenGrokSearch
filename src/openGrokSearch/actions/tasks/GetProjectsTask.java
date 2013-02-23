@@ -1,5 +1,8 @@
 package openGrokSearch.actions.tasks;
 
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.ui.Messages;
@@ -33,8 +36,13 @@ public class GetProjectsTask extends Task.Backgroundable {
             );
 
             resultForm.prepareProjectLists();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Connection Error");
+        } catch (Exception e) {
+            Notifications.Bus.notify(
+                    new Notification(
+                            "OpenGrok Search", "Error", "Could not connect to openGrok",
+                            NotificationType.ERROR
+                    )
+            );
         }
     }
 }

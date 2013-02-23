@@ -20,21 +20,18 @@ public class Project extends AbsConnection {
         return new HashMap<String, String>();
     }
 
-    public String[] getProjects() {
+    public String[] getProjects() throws IOException {
         String[] results;
-        try {
-            Document doc = getPage();
-            Elements projects = doc.select("select#project.q option");
+        Document doc = getPage();
+        Elements projects = doc.select("select#project.q option");
 
-            results = new String[projects.size()];
-            int i = 0;
-            for (Element src : projects) {
-                results[i] = src.attr("value"); System.out.println(src.attr("value"));
-                i++;
-            }
-        } catch (IOException e) {
-            results = null;
+        results = new String[projects.size()];
+        int i = 0;
+        for (Element src : projects) {
+            results[i] = src.attr("value"); System.out.println(src.attr("value"));
+            i++;
         }
+
         return results;
     }
 

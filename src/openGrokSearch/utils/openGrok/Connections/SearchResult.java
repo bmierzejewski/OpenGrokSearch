@@ -49,7 +49,7 @@ public class SearchResult extends AbsConnection {
         return params;
     }
 
-    public ArrayList<Result> search() {
+    public ArrayList<Result> search() throws IOException {
         ArrayList<Result> results = new ArrayList<Result>();
         int numberOfPages = getNumberOfPages();
 
@@ -62,20 +62,20 @@ public class SearchResult extends AbsConnection {
         return results;
     }
 
-    private int getNumberOfPages() {
+    private int getNumberOfPages() throws IOException {
         int numberOfPages = 0;
-        try {
+//        try {
             lastDoc = getPage();
             Elements elements = lastDoc.select("div#results b");
 
             if (elements.size() >= 3) {
                 numberOfPages = (int)Math.ceil(Float.parseFloat(elements.get(2).html()) / 25);
             }
-        } catch (IOException e) {
-            numberOfPages = 0;
-        } catch (NumberFormatException e) {
-            numberOfPages = 0;
-        }
+//        } catch (IOException e) {
+//            numberOfPages = 0;
+//        } catch (NumberFormatException e) {
+//            numberOfPages = 0;
+//        }
 
         return numberOfPages;
     }

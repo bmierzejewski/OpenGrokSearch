@@ -1,8 +1,12 @@
 package openGrokSearch.actions.tasks;
 
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import openGrokSearch.forms.SearchResultForm;
 import openGrokSearch.utils.Configuration;
 import openGrokSearch.utils.openGrok.Connections.SearchResult;
@@ -33,31 +37,49 @@ public class SearchTask extends Task.Backgroundable {
 
     @Override
     public void run(@NotNull ProgressIndicator progressIndicator) {
+        boolean dataTyped = false;
         SearchResult ogp = new SearchResult(configuration);
         if (searchConditions.containsKey("phrase")) {
             ogp.setFullSearchPhrase(searchConditions.get("phrase"));
+            dataTyped = true;
         }
         if (searchConditions.containsKey("definition")) {
             ogp.setDefinition(searchConditions.get("definition"));
+            dataTyped = true;
         }
         if (searchConditions.containsKey("symbol")) {
             ogp.setSymbol(searchConditions.get("symbol"));
+            dataTyped = true;
         }
         if (searchConditions.containsKey("filePath")) {
             ogp.setFilePath(searchConditions.get("filePath"));
+            dataTyped = true;
         }
         if (searchConditions.containsKey("history")) {
             ogp.setHistory(searchConditions.get("history"));
+            dataTyped = true;
         }
         if (searchConditions.containsKey("project")) {
             ogp.setProject(searchConditions.get("project"));
         }
 
-        ArrayList<Result> results = ogp.search();
+        if (dataTyped) {
+            try {
+                ArrayList<Result> results = ogp.search();
 
-        HashMap<String, HashMap> groupedResults = Result.groupResults(results);
+                HashMap<String, HashMap> groupedResults = Result.groupResults(results);
 
-        resultForm.setResults(groupedResults);
+                resultForm.setResults(groupedResults);
+            } catch (Exception e) {
+                System.out.println("dupa");
+                Notifications.Bus.notify(
+                        new Notification(
+                            "OpenGrok Search", "Error", "Could not connect to openGrok",
+                            NotificationType.ERROR
+                        )
+                );
+            }
+        }
     }
 
     public void addSearchCondition(String key, String value) {

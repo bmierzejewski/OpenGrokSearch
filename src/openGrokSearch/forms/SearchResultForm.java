@@ -75,6 +75,7 @@ public class SearchResultForm implements ActionListener {
     public void prepareProjectLists() {
         int selectedItem = 0;
         int index = 0;
+
         project.removeAllItems();
         for (String item : configuration.getProjects()) {
             project.addItem(item);
@@ -116,7 +117,9 @@ public class SearchResultForm implements ActionListener {
         if (!history.getText().isEmpty()) {
             task.addSearchCondition("history", history.getText());
         }
-        task.addSearchCondition("project", project.getSelectedItem().toString());
+        if (project.getItemCount() > 0) {
+            task.addSearchCondition("project", project.getSelectedItem().toString());
+        }
         ProgressManager.getInstance().run(task);
     }
 
