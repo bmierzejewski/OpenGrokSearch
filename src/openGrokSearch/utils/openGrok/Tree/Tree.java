@@ -90,6 +90,7 @@ public class Tree extends JTree {
             model.insertNodeInto(
                 new Node("No results found", "/general/error.png"), root, root.getChildCount()
             );
+            this.expandPath(new TreePath(root.getPath()));
         }
 
         this.setCellRenderer(new NodeRenderer());

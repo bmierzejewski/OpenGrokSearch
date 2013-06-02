@@ -3,6 +3,7 @@ package openGrokSearch.actions.tasks;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.ui.Messages;
@@ -25,6 +26,8 @@ public class GetProjectsTask extends Task.Backgroundable {
 
     @Override
     public void run(@NotNull ProgressIndicator progressIndicator) {
+        ApplicationManager.getApplication().invokeLater(new HideForms());
+
         try {
             Project ogp = new Project(configuration);
             configuration.setProjects(
@@ -43,6 +46,23 @@ public class GetProjectsTask extends Task.Backgroundable {
                             NotificationType.ERROR
                     )
             );
+        }
+    }
+
+    public void onSuccess() {
+        ApplicationManager.getApplication().invokeLater(new ShowForms());
+    }
+
+    private class HideForms implements Runnable {
+        public void run() {
+            resultForm.getProject().setVisible(false);
+        }
+    }
+
+    private class ShowForms implements Runnable {
+        public void run() {
+            resultForm.getProject().setVisible(true);
+            resultForm.getProject().repaint();
         }
     }
 }

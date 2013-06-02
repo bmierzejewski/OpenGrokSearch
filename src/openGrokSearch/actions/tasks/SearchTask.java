@@ -3,6 +3,7 @@ package openGrokSearch.actions.tasks;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
@@ -37,6 +38,8 @@ public class SearchTask extends Task.Backgroundable {
 
     @Override
     public void run(@NotNull ProgressIndicator progressIndicator) {
+        ApplicationManager.getApplication().invokeLater(new HideForms());
+
         boolean dataTyped = false;
         SearchResult ogp = new SearchResult(configuration);
         if (searchConditions.containsKey("phrase")) {
@@ -71,12 +74,11 @@ public class SearchTask extends Task.Backgroundable {
 
                 resultForm.setResults(groupedResults);
             } catch (Exception e) {
-                System.out.println("dupa");
                 Notifications.Bus.notify(
-                        new Notification(
-                            "OpenGrok Search", "Error", "Could not connect to openGrok",
-                            NotificationType.ERROR
-                        )
+                    new Notification(
+                        "OpenGrok Search", "Error", "Could not connect to openGrok",
+                        NotificationType.ERROR
+                    )
                 );
             }
         }
@@ -84,5 +86,22 @@ public class SearchTask extends Task.Backgroundable {
 
     public void addSearchCondition(String key, String value) {
         searchConditions.put(key, value);
+    }
+
+    public void onSuccess() {
+        ApplicationManager.getApplication().invokeLater(new ShowForms());
+    }
+
+    private class HideForms implements Runnable {
+        public void run() {
+            resultForm.getSearchTree().setVisible(false);
+        }
+    }
+
+    private class ShowForms implements Runnable {
+        public void run() {
+            resultForm.getSearchTree().setVisible(true);
+            resultForm.getSearchTree().repaint();
+        }
     }
 }

@@ -50,7 +50,7 @@ public class SearchResult extends AbsConnection {
     }
 
     public ArrayList<Result> search() throws IOException {
-        ArrayList<Result> results = new ArrayList<Result>();
+        ArrayList<Result> results;
         int numberOfPages = getNumberOfPages();
 
         if (numberOfPages == 1) {
@@ -64,18 +64,12 @@ public class SearchResult extends AbsConnection {
 
     private int getNumberOfPages() throws IOException {
         int numberOfPages = 0;
-//        try {
-            lastDoc = getPage();
-            Elements elements = lastDoc.select("div#results b");
+        lastDoc = getPage();
+        Elements elements = lastDoc.select("div#results b");
 
-            if (elements.size() >= 3) {
-                numberOfPages = (int)Math.ceil(Float.parseFloat(elements.get(2).html()) / 25);
-            }
-//        } catch (IOException e) {
-//            numberOfPages = 0;
-//        } catch (NumberFormatException e) {
-//            numberOfPages = 0;
-//        }
+        if (elements.size() >= 3) {
+            numberOfPages = (int)Math.ceil(Float.parseFloat(elements.get(2).html()) / 25);
+        }
 
         return numberOfPages;
     }

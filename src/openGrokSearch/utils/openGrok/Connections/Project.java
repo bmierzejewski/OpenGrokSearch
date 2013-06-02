@@ -28,7 +28,7 @@ public class Project extends AbsConnection {
         results = new String[projects.size()];
         int i = 0;
         for (Element src : projects) {
-            results[i] = src.attr("value"); System.out.println(src.attr("value"));
+            results[i] = src.attr("value");
             i++;
         }
 

@@ -17,16 +17,23 @@ abstract public class AbsConnection {
 
     public AbsConnection(Configuration configuration) {
         this.configuration = configuration;
-        connection = Jsoup.connect(configuration.getLink())
-                .userAgent("Mozilla")
-                .timeout(3000);
+    }
 
-        if (configuration.isSelected()) {
-            connection.header("Authorization", this.getAuthorizationHeaders());
+    protected void connect() {
+        if (connection == null) {
+            connection = Jsoup.connect(configuration.getLink())
+                    .userAgent("Mozilla")
+                    .timeout(3000);
+
+            if (configuration.isSelected()) {
+                connection.header("Authorization", this.getAuthorizationHeaders());
+            }
         }
     }
 
     protected Document getPage() throws IOException {
+        connect();
+
         Iterator it = getParams().entrySet().iterator();
         while(it.hasNext()) {
             Map.Entry pairs = (Map.Entry)it.next();

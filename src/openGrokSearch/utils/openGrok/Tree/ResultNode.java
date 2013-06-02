@@ -15,6 +15,7 @@ public class ResultNode extends Node{
     }
 
     public String getFullPath() {
-        return node.getPath() + "/" + node.getFile();
+        String path = node.getPath().replaceFirst("master/", "");
+        return path + "/" + node.getFile();
     }
 }

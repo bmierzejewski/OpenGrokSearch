@@ -14,6 +14,7 @@ import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import openGrokSearch.actions.tasks.GetProjectsTask;
 import openGrokSearch.actions.tasks.SearchTask;
 import openGrokSearch.utils.Configuration;
 import openGrokSearch.utils.openGrok.Result;
@@ -97,7 +98,6 @@ public class SearchResultForm implements ActionListener {
         symbol.addActionListener(this);
         filePath.addActionListener(this);
         history.addActionListener(this);
-        project.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -141,5 +141,13 @@ public class SearchResultForm implements ActionListener {
 
     public void setResults(HashMap<String, HashMap> groupedResults) {
         searchTree.setResults(groupedResults);
+    }
+
+    public Tree getSearchTree() {
+        return searchTree;
+    }
+
+    public JComboBox getProject() {
+        return project;
     }
 }
