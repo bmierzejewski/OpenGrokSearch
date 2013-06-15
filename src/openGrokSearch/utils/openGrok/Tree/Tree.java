@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
+import openGrokSearch.utils.Configuration;
 import openGrokSearch.utils.openGrok.Result;
 
 import javax.swing.*;
@@ -20,6 +21,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Tree extends JTree {
+    private ArrayList<ArrayList> pathTransformations;
+
+    public void setPathTransformations(ArrayList<ArrayList> pathTransformations) {
+        this.pathTransformations = pathTransformations;
+    }
 
     public void setProject(final Project project) {
         final Tree currentTree = this;
@@ -106,7 +112,7 @@ public class Tree extends JTree {
         Iterator pathIterator = groupedResults.entrySet().iterator();
         while (pathIterator.hasNext()) {
             Map.Entry pathPair = (Map.Entry)pathIterator.next();
-            String path = (String)pathPair.getKey();
+            String path = getPath((String)pathPair.getKey());
             HashMap files = (HashMap)pathPair.getValue();
 
             Node pathNode = new Node(path, "/nodes/folder.png");
@@ -138,5 +144,13 @@ public class Tree extends JTree {
         }
 
         this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+    }
+
+    private String getPath(String filename) {
+        for (ArrayList trans : pathTransformations) {
+            filename = filename.replaceAll(trans.get(0).toString(), trans.get(1).toString());
+        }
+
+        return filename;
     }
 }

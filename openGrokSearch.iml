@@ -9,6 +9,7 @@
     <orderEntry type="jdk" jdkName="IDEA IC-117.963" jdkType="IDEA JDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jsoup-1.7.1" level="project" />
+    <orderEntry type="library" name="gson-2.2.4" level="project" />
   </component>
 </module>
 

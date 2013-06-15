@@ -140,6 +140,7 @@ public class SearchResultForm implements ActionListener {
     }
 
     public void setResults(HashMap<String, HashMap> groupedResults) {
+        searchTree.setPathTransformations(configuration.getPaths());
         searchTree.setResults(groupedResults);
     }
 

@@ -3,6 +3,9 @@ package openGrokSearch.utils;
 import com.intellij.ide.util.PropertiesComponent;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
+import com.google.gson.Gson;
+
 public class Configuration {
     private PropertiesComponent propertiesComponent;
 
@@ -12,6 +15,7 @@ public class Configuration {
     public static final String PROJECTS_FIELD = "openGrokProjects";
     public static final String DEFAULT_PROJECT_FIELD = "openGrokDefaultProject";
     public static final String SELECTED_FIELD = "openGrokSelectedField";
+    public static final String PATHS_FIELD = "openGrokPathsField";
 
     private static Configuration instance;
 
@@ -78,5 +82,21 @@ public class Configuration {
 
     public void setSelected(boolean selected) {
         propertiesComponent.setValue(Configuration.SELECTED_FIELD, String.valueOf(selected));
+    }
+
+    public void setPaths(ArrayList<ArrayList> paths) {
+        Gson gson = new Gson();
+        String pathsJson = gson.toJson(paths);
+
+        propertiesComponent.setValue(Configuration.PATHS_FIELD, pathsJson);
+    }
+
+    public ArrayList<ArrayList> getPaths() {
+        Gson gson = new Gson();
+
+        return gson.fromJson(
+            propertiesComponent.getValue(Configuration.PATHS_FIELD),
+            ArrayList.class
+        );
     }
 }
