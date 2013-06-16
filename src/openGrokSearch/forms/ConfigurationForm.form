@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="component" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="706" height="437"/>
+      <xy x="20" y="20" width="706" height="756"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -66,7 +66,7 @@
         <properties/>
         <border type="none" title="Additional"/>
         <children>
-          <grid id="ed6bf" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="ed6bf" layout-manager="GridLayoutManager" row-count="11" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints/>
             <properties/>
@@ -123,7 +123,7 @@
               </component>
               <component id="476d" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <labelFor value="f2a0d"/>
@@ -132,7 +132,7 @@
               </component>
               <scrollpane id="f2a0d" binding="pathTransformPane">
                 <constraints>
-                  <grid row="5" column="1" row-span="5" col-span="2" vsize-policy="6" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="1" row-span="5" col-span="2" vsize-policy="6" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none" title=""/>
@@ -145,11 +145,31 @@
               </scrollpane>
               <vspacer id="1550b">
                 <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
                     <minimum-size width="-1" height="20"/>
                   </grid>
                 </constraints>
               </vspacer>
+              <component id="128be" class="javax.swing.JLabel" binding="limitLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <labelFor value="19553"/>
+                  <text value="Result limit"/>
+                </properties>
+              </component>
+              <component id="19553" class="javax.swing.JTextField" binding="limitField">
+                <constraints>
+                  <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="50" height="-1"/>
+                    <maximum-size width="50" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

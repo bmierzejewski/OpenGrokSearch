@@ -153,4 +153,16 @@ public class Tree extends JTree {
 
         return filename;
     }
+
+    public void expandAll() {
+        for (int i = 0; i < this.getRowCount(); i++) {
+            this.expandRow(i);
+        }
+    }
+
+    public void collapseAll() {
+        for (int i = 0; i < this.getRowCount(); i++) {
+            this.collapseRow(i);
+        }
+    }
 }

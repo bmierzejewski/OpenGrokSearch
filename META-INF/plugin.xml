@@ -10,7 +10,6 @@
   <depends>com.intellij.modules.lang</depends>
 
   <application-components>
-    <!-- Add your application components here -->
   </application-components>
 
   <project-components>
@@ -20,20 +19,31 @@
   </project-components>
 
   <actions>
-    <!-- Add your actions here -->
       <action id="openGrokSearch.actions.SearchAction" class="openGrokSearch.actions.SearchAction"
               text="Search in openGrok" description="Search selected text in openGrok" icon="/actions/find.png">
           <keyboard-shortcut first-keystroke="control o" keymap="$default"/>
           <add-to-group group-id="FindMenuGroup" anchor="last"/>
       </action>
 
-      <!--<group id="openGrokSearch.actions" text="" popup="false">-->
-          <!--<reference id="openGrokSearch.actions.Button.SearchAction" ref="openGrokSearch.actions.SearchAction"/>-->
-      <!--</group>-->
+      <action id="openGrokSearch.ToolBar.ExpandAll"
+              class="openGrokSearch.actions.ExpandAllAction"
+              text="Expand results"
+              description="Expand result tree"
+              icon="/actions/expandall.png" />
+
+      <action id="openGrokSearch.ToolBar.CollapseAll"
+              class="openGrokSearch.actions.CollapseAllAction"
+              text="Collapse results"
+              description="Collapse result tree"
+              icon="/actions/collapseall.png" />
+
+      <group id="openGrokSearch.ToolBar" text="" popup="false">
+          <reference id="openGrokSearch.ToolBar.Button.ExpandAll" ref="openGrokSearch.ToolBar.ExpandAll"/>
+          <reference id="openGrokSearch.ToolBar.Button.CollapseAll" ref="openGrokSearch.ToolBar.CollapseAll"/>
+      </group>
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
       <appStarter implementation="openGrokSearch.actions.SearchAction"/>
   </extensions>
 </idea-plugin>

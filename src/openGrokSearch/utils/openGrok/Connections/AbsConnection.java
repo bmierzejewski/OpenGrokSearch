@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 abstract public class AbsConnection {
-    private Configuration configuration;
+    protected Configuration configuration;
     private org.jsoup.Connection connection;
 
     public AbsConnection(Configuration configuration) {

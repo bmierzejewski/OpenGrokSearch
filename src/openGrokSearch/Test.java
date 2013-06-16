@@ -37,7 +37,13 @@ public class Test {
 //        arr2.add(elem);
 //        System.out.println(arr2);
 
-        String oko = "/core/oovbaapi/ooo/vba/excel/test";
-        System.out.println(oko.replaceAll("/core/oovbaapi/ooo/vba/excel/test", "DUPA"));
+//        String oko = "/core/oovbaapi/ooo/vba/excel/test";
+//        System.out.println(oko.replaceAll("/core/oovbaapi/ooo/vba/excel/test", "DUPA"));
+
+        String a = "50";
+        String b = "100";
+
+        System.out.println(Math.max(Integer.parseInt(a), Integer.parseInt(b)));
+        System.out.println(Math.max(Integer.parseInt(a), Integer.parseInt(b)) / 25);
     }
 }

@@ -16,6 +16,7 @@ public class Configuration {
     public static final String DEFAULT_PROJECT_FIELD = "openGrokDefaultProject";
     public static final String SELECTED_FIELD = "openGrokSelectedField";
     public static final String PATHS_FIELD = "openGrokPathsField";
+    public static final String LIMIT_FIELD = "openGrokLimitField";
 
     private static Configuration instance;
 
@@ -94,9 +95,32 @@ public class Configuration {
     public ArrayList<ArrayList> getPaths() {
         Gson gson = new Gson();
 
-        return gson.fromJson(
-            propertiesComponent.getValue(Configuration.PATHS_FIELD),
-            ArrayList.class
-        );
+        try {
+            return gson.fromJson(
+                propertiesComponent.getValue(Configuration.PATHS_FIELD),
+                ArrayList.class
+            );
+        } catch (NullPointerException e) {
+            return new ArrayList<ArrayList>();
+        }
+    }
+
+    public String getLimit() {
+        try {
+            String limit = propertiesComponent.getValue(Configuration.LIMIT_FIELD);
+
+            if (limit.equals("")) {
+                limit = "50";
+            }
+
+            return limit;
+        } catch (NullPointerException e) {
+            return "50";
+        }
+    }
+
+    public void setLimit(String limit) {
+        int tmp = Integer.parseInt(limit);
+        propertiesComponent.setValue(Configuration.LIMIT_FIELD, String.valueOf(tmp));
     }
 }

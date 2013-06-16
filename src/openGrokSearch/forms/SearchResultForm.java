@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 
+import com.intellij.openapi.actionSystem.ActionGroup;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.project.Project;
@@ -71,6 +74,12 @@ public class SearchResultForm implements ActionListener {
 
         toolWindow.setAutoHide(false);
         toolWindow.setAvailable(true, null);
+
+        ActionManager actionManager = ActionManager.getInstance();
+        ActionGroup toolbarGroup = (ActionGroup) actionManager.getAction("openGrokSearch.ToolBar");
+        ActionToolbar actionToolbar = actionManager.createActionToolbar(TOOL_WINDOW_ID, toolbarGroup, false);
+        toolBar.add(actionToolbar.getComponent());
+        toolBar.setFloatable(false);
     }
 
     public void prepareProjectLists() {
@@ -150,5 +159,13 @@ public class SearchResultForm implements ActionListener {
 
     public JComboBox getProject() {
         return project;
+    }
+
+    public void expandResults() {
+        searchTree.expandAll();
+    }
+
+    public void collapseResults() {
+        searchTree.collapseAll();
     }
 }

@@ -20,6 +20,8 @@ public class ConfigurationForm {
     private JCheckBox accessProtected;
     private JTable pathTransformTable;
     private JScrollPane pathTransformPane;
+    private JLabel limitLabel;
+    private JTextField limitField;
 
     public ConfigurationForm(Configuration configuration) {
         this.linkField.setText(configuration.getLink());
@@ -37,6 +39,8 @@ public class ConfigurationForm {
         tableModel.setNumRows(10);
         pathTransformTable.setModel(tableModel);
         pathTransformPane.setPreferredSize(new Dimension(pathTransformPane.getWidth(), 190));
+
+        this.limitField.setText(configuration.getLimit());
     }
 
     public JPanel getComponent() {
@@ -54,6 +58,8 @@ public class ConfigurationForm {
             tableModel.addRow(new Vector(row));
         }
         tableModel.setNumRows(10);
+
+        this.limitField.setText(configuration.getLimit());
     }
 
     public void apply(Configuration configuration) {
@@ -74,6 +80,6 @@ public class ConfigurationForm {
             }
         }
         configuration.setPaths(paths);
-        System.out.println(paths);
+        configuration.setLimit(this.limitField.getText());
     }
 }

@@ -68,7 +68,9 @@ public class SearchResult extends AbsConnection {
         Elements elements = lastDoc.select("div#results b");
 
         if (elements.size() >= 3) {
-            numberOfPages = (int)Math.ceil(Float.parseFloat(elements.get(2).html()) / 25);
+            numberOfPages = (int) Math.ceil(
+                Math.min(Integer.parseInt(elements.get(2).html()), Integer.parseInt(configuration.getLimit())) / 25
+            );
         }
 
         return numberOfPages;
