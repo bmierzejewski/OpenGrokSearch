@@ -1,49 +1,49 @@
 <idea-plugin version="2">
-  <name>openGrokSearch</name>
-  <description>Searches selected text in openGrok</description>
-  <version>2.0</version>
-  <vendor>Bartosz Mierzejewski</vendor>
+    <name>openGrokSearch</name>
+    <description>Search selected text in openGrok</description>
+    <version>2.0.0</version>
+    <vendor email="bartosz.mierzejewski@gmail.com">Bartosz Mierzejewski</vendor>
 
-  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="8000"/>
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+    <!--<idea-version since-build="8000"/>-->
 
-  <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.lang</depends>
 
-  <application-components>
-  </application-components>
+    <application-components>
+    </application-components>
 
-  <project-components>
+    <project-components>
         <component>
             <implementation-class>openGrokSearch.OpenGrokSearch</implementation-class>
         </component>
-  </project-components>
+    </project-components>
 
-  <actions>
-      <action id="openGrokSearch.actions.SearchAction" class="openGrokSearch.actions.SearchAction"
-              text="Search in openGrok" description="Search selected text in openGrok" icon="/actions/find.png">
-          <keyboard-shortcut first-keystroke="control o" keymap="$default"/>
-          <add-to-group group-id="FindMenuGroup" anchor="last"/>
-      </action>
+    <actions>
+        <action id="openGrokSearch.actions.SearchAction" class="openGrokSearch.actions.SearchAction"
+                text="Search in openGrok" description="Search selected text in openGrok" icon="/actions/find.png">
+            <keyboard-shortcut first-keystroke="control o" keymap="$default"/>
+            <add-to-group group-id="FindMenuGroup" anchor="last"/>
+        </action>
 
-      <action id="openGrokSearch.ToolBar.ExpandAll"
-              class="openGrokSearch.actions.ExpandAllAction"
-              text="Expand results"
-              description="Expand result tree"
-              icon="/actions/expandall.png" />
+        <action id="openGrokSearch.ToolBar.ExpandAll"
+                class="openGrokSearch.actions.ExpandAllAction"
+                text="Expand results"
+                description="Expand result tree"
+                icon="/actions/expandall.png"/>
 
-      <action id="openGrokSearch.ToolBar.CollapseAll"
-              class="openGrokSearch.actions.CollapseAllAction"
-              text="Collapse results"
-              description="Collapse result tree"
-              icon="/actions/collapseall.png" />
+        <action id="openGrokSearch.ToolBar.CollapseAll"
+                class="openGrokSearch.actions.CollapseAllAction"
+                text="Collapse results"
+                description="Collapse result tree"
+                icon="/actions/collapseall.png"/>
 
-      <group id="openGrokSearch.ToolBar" text="" popup="false">
-          <reference id="openGrokSearch.ToolBar.Button.ExpandAll" ref="openGrokSearch.ToolBar.ExpandAll"/>
-          <reference id="openGrokSearch.ToolBar.Button.CollapseAll" ref="openGrokSearch.ToolBar.CollapseAll"/>
-      </group>
-  </actions>
+        <group id="openGrokSearch.ToolBar" text="" popup="false">
+            <reference id="openGrokSearch.ToolBar.Button.ExpandAll" ref="openGrokSearch.ToolBar.ExpandAll"/>
+            <reference id="openGrokSearch.ToolBar.Button.CollapseAll" ref="openGrokSearch.ToolBar.CollapseAll"/>
+        </group>
+    </actions>
 
-  <extensions defaultExtensionNs="com.intellij">
-      <appStarter implementation="openGrokSearch.actions.SearchAction"/>
-  </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <appStarter implementation="openGrokSearch.actions.SearchAction"/>
+    </extensions>
 </idea-plugin>
