@@ -3,11 +3,11 @@ OpenGrokSearch
 [OpenGrokSearch][1] is a simple plugin for searching in openGrok.
 
 Download
-==============
+--------
 [Download][2] the plugin zip and select "Install Plugin From Disk" in IntelliJ's plugin preferences.
 
 License
-=======
+--------
 
     Copyright 2013 Square, Inc.
 
